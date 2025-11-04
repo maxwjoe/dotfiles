@@ -54,7 +54,6 @@ return {
 				-- Mid Level
 
 				-- "omnisharp", -- c# (USE ROSLYN PLUGIN)
-        "roslyn", -- C#
 				"pyright", -- python
 				"taplo", -- toml
 
