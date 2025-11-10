@@ -7,16 +7,25 @@ return {
   build = ":TSUpdate",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    {
+      "windwp/nvim-ts-autotag",
+      config = function()
+        require("nvim-ts-autotag").setup({
+          opts = {
+            enable_close = true,          -- Auto close tags
+            enable_rename = true,         -- Auto rename paired tags
+            enable_close_on_slash = false -- Auto close on trailing </
+          },
+        })
+      end,
+    },
   },
-  config = function()
 
+  config = function()
     local treesitter = require("nvim-treesitter.configs")
 
     treesitter.setup({
-      highlight = {
-        enable = true,
-      },
-
+      highlight = { enable = true },
       indent = { enable = true },
 
       ensure_installed = {
@@ -79,9 +88,10 @@ return {
           },
         },
       },
+
+      -- NOTE: no `autotag = {}` block here; that setup is deprecated upstream.
     })
 
     vim.treesitter.language.register("bash", "zsh")
-
   end,
 }
