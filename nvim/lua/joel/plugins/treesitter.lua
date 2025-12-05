@@ -47,6 +47,7 @@ return {
         "vimdoc",
         "c",
         "c_sharp",
+        "sql",
         "cpp",
         "python",
         "cmake",
