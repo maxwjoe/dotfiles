@@ -2,7 +2,7 @@
 -- Description : Markdown browser preview
 return {
   "iamcco/markdown-preview.nvim",
-  build = "cd app && npm install",
+    build = function() vim.fn["mkdp#util#install"]() end,
   ft = "markdown",
   config = function()
   end,

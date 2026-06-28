@@ -39,3 +39,14 @@ opt.clipboard:append("unnamedplus") -- Use system clipboard as default register
 
 opt.splitright = true -- Splits a vertical window to the right
 opt.splitbelow = true -- Splits a horizontal window to the left
+
+-- Native Windows: route :terminal and shell-outs through PowerShell (UTF-8)
+if vim.fn.has("win32") == 1 and vim.fn.executable("pwsh") == 1 then
+  vim.o.shell = "pwsh"
+  vim.o.shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+  vim.o.shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+  vim.o.shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+  vim.o.shellquote = ""
+  vim.o.shellxquote = ""
+end

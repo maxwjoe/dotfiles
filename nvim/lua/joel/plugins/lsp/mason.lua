@@ -2,9 +2,9 @@
 -- Description : LSP Manager Configuration
 
 return {
-	"williamboman/mason.nvim",
+	"mason-org/mason.nvim",
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 
@@ -68,8 +68,8 @@ return {
 			ensure_installed = {
 				"prettier",
 				"stylua",
-				"isort",
-				"black",
+				-- "isort", NOTE: Removed these since mason fails to install -> Just install externally via bootstrap
+				-- "black",
 				"ruff",
 				"eslint_d",
 			},
