@@ -10,25 +10,11 @@ else
   echo "Skipped ~/.config/nvim (not a symlink)"
 fi
 
-if [ -L "$HOME/.tmux.conf" ]; then
-  rm "$HOME/.tmux.conf"
-  echo "Removed symlink ~/.tmux.conf"
+if [ -L "$HOME/.config/wezterm" ]; then
+  rm "$HOME/.config/wezterm"
+  echo "Removed symlink ~/.config/wezterm"
 else
-  echo "Skipped ~/.tmux.conf (not a symlink)"
-fi
-
-if [ -L "$HOME/.tmux" ]; then
-  rm "$HOME/.tmux"
-  echo "Removed symlink ~/.tmux"
-else
-  echo "Skipped ~/.tmux (not a symlink)"
-fi
-
-if [ -L "$HOME/.config/opencode" ]; then
-  rm "$HOME/.config/opencode"
-  echo "Removed symlink ~/.config/opencode"
-else
-  echo "Skipped ~/.config/opencode (not a symlink)"
+  echo "Skipped ~/.config/wezterm(not a symlink)"
 fi
 
 echo "Done."
