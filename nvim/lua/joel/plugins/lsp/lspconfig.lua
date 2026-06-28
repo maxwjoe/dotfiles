@@ -88,7 +88,7 @@ return {
       },
     })
 
-    vim.lsp.inlay_hint.enable()
+    vim.lsp.inlay_hint.enable(false)
 
     vim.lsp.config("*", {
       capabilities = capabilities,
@@ -96,5 +96,6 @@ return {
 
 	-- Custom Configurations Here
 
+    vim.lsp.enable("clangd")
   end,
 }
