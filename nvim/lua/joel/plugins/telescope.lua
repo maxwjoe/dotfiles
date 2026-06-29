@@ -8,12 +8,18 @@ return {
     "nvim-lua/plenary.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
-      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release "
-        .. "&& cmake --build build --config Release "
-        .. "&& cmake --install build --prefix build",
+      -- Windows: explicitly use Ninja + clang since cmake can't auto-detect a generator without MSVC
+      build = vim.fn.has("win32") == 1
+        and "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -G Ninja"
+          .. " && cmake --build build --config Release"
+          .. " && cmake --install build --prefix build"
+        or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release"
+          .. " && cmake --build build --config Release"
+          .. " && cmake --install build --prefix build",
     },
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
+    "folke/trouble.nvim",
   },
   config = function()
 
@@ -37,7 +43,10 @@ return {
       },
     })
 
-    telescope.load_extension("fzf")
+    -- fzf-native requires a compiled C binary; gracefully degrade if build failed (e.g. missing compiler)
+    if not pcall(telescope.load_extension, "fzf") then
+      vim.notify("telescope-fzf-native not loaded (build may have failed)", vim.log.levels.WARN)
+    end
 
     -- Keymaps 
     

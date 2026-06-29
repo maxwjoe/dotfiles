@@ -16,7 +16,7 @@ config.color_scheme = "Github Dark"
 
 if is_windows then
   config.win32_system_backdrop = "Acrylic"
-  config.window_background_opacity = 0.7
+  config.window_background_opacity = 0.95
   config.window_frame = config.window_frame or {}
   config.window_frame.font_size = 10.0
 end
