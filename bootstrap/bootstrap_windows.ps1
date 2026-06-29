@@ -23,8 +23,8 @@ python -m pipx ensurepath
 
 $env:PATH += ";$env:USERPROFILE\.local\bin"
 
-pipx install black --force
-pipx install isort --force
+python -m pipx install black --force
+python -m pipx install isort --force
 
 & "$PSScriptRoot\setup_symlinks.ps1"
 

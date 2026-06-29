@@ -1,10 +1,6 @@
 $ErrorActionPreference = "Stop"
 $DOTFILES_DIR = (Resolve-Path "$PSScriptRoot\..").Path
-
-# Windows destination overrides; unlisted apps fall back to $env:USERPROFILE\.config\<app>
-$WIN_DESTINATIONS = @{
-    "nvim" = "$env:LOCALAPPDATA\nvim"
-}
+. "$PSScriptRoot\win_destinations.ps1"
 
 function Link-Path($src, $dst, $kind) {
     $parent = Split-Path $dst
@@ -33,11 +29,19 @@ Get-Content "$PSScriptRoot\apps.txt" | Where-Object { $_ -notmatch '^\s*#' -and 
     Link-Path $src $dst "Junction"
 }
 
-$AGENTS_SRC = "$DOTFILES_DIR\AGENTS.md"
-foreach ($dst in @(
-    "$env:USERPROFILE\.claude\AGENTS.md",
-    "$env:USERPROFILE\.claude\CLAUDE.md",
-    "$env:USERPROFILE\AGENTS.md"
-)) {
-    Link-Path $AGENTS_SRC $dst "SymbolicLink"
+# File symlinks require Administrator or Developer Mode on Windows
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+$devMode = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -ErrorAction SilentlyContinue).AllowDevelopmentWithoutDevLicense -eq 1
+
+if (-not $isAdmin -and -not $devMode) {
+    Write-Warning "Skipping AGENTS.md/CLAUDE.md symlinks: requires Administrator or Developer Mode (Settings -> System -> For developers). Re-run this script after enabling."
+} else {
+    $AGENTS_SRC = "$DOTFILES_DIR\AGENTS.md"
+    foreach ($dst in @(
+        "$env:USERPROFILE\.claude\AGENTS.md",
+        "$env:USERPROFILE\.claude\CLAUDE.md",
+        "$env:USERPROFILE\AGENTS.md"
+    )) {
+        Link-Path $AGENTS_SRC $dst "SymbolicLink"
+    }
 }

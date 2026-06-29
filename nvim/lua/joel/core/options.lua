@@ -40,6 +40,14 @@ opt.clipboard:append("unnamedplus") -- Use system clipboard as default register
 opt.splitright = true -- Splits a vertical window to the right
 opt.splitbelow = true -- Splits a horizontal window to the left
 
+-- Ensure pipx-managed tools (black, isort) are on PATH when nvim is launched from a GUI or non-login shell
+if vim.fn.has("win32") == 0 then
+  local local_bin = vim.env.HOME .. "/.local/bin"
+  if not vim.env.PATH:find(local_bin, 1, true) then
+    vim.env.PATH = local_bin .. ":" .. vim.env.PATH
+  end
+end
+
 -- Native Windows: route :terminal and shell-outs through PowerShell (UTF-8)
 if vim.fn.has("win32") == 1 and vim.fn.executable("pwsh") == 1 then
   vim.o.shell = "pwsh"

@@ -1,9 +1,5 @@
 $ErrorActionPreference = "Stop"
-
-# Windows destination overrides; unlisted apps fall back to $env:USERPROFILE\.config\<app>
-$WIN_DESTINATIONS = @{
-    "nvim" = "$env:LOCALAPPDATA\nvim"
-}
+. "$PSScriptRoot\win_destinations.ps1"
 
 function Remove-Link($dst) {
     $item = Get-Item $dst -Force -ErrorAction SilentlyContinue

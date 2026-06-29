@@ -11,14 +11,24 @@ sudo apt install -y \
     ripgrep \
     fd-find \
     cmake \
+    build-essential \
     nodejs \
     npm \
     python3 \
     python3-pip \
     pipx
 
-LAZYGIT_VERSION=$(curl -fsSL "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name"' | sed 's/.*"v\([^"]*\)".*/\1/')
-curl -fsSL "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" | tar xz -C /tmp lazygit
+LAZYGIT_VERSION=$(curl -fsSL "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" \
+  | python3 -c "import sys, json; print(json.load(sys.stdin)['tag_name'].lstrip('v'))")
+
+case "$(uname -m)" in
+  x86_64)  LAZYGIT_ARCH="x86_64" ;;
+  aarch64) LAZYGIT_ARCH="arm64" ;;
+  armv7l)  LAZYGIT_ARCH="armv6" ;;
+  *)       echo "Unsupported architecture: $(uname -m)"; exit 1 ;;
+esac
+
+curl -fsSL "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_${LAZYGIT_ARCH}.tar.gz" | tar xz -C /tmp lazygit
 sudo install /tmp/lazygit /usr/local/bin/lazygit
 
 pipx ensurepath

@@ -10,6 +10,7 @@ return {
     {
       "L3MON4D3/LuaSnip",
       version = "v2.*", 
+    -- jsregexp not built on Windows (make unavailable); snippet regex transforms degrade silently to Lua fallback
     build = vim.fn.has("win32") == 0 and "make install_jsregexp" or nil,
     },
     "saadparwaiz1/cmp_luasnip", 
