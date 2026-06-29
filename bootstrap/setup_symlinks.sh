@@ -4,9 +4,9 @@
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-source "$SCRIPT_DIR/apps.sh"
 
-for app in "${APPS[@]}"; do
+while IFS= read -r app || [[ -n "$app" ]]; do
+  [[ -z "$app" || "$app" == \#* ]] && continue
   src="$DOTFILES_DIR/$app"
   dst="$HOME/.config/$app"
   [ -d "$src" ] || { echo "Skipping $app (no $src)"; continue; }
@@ -18,7 +18,7 @@ for app in "${APPS[@]}"; do
   fi
   ln -sfn "$src" "$dst"
   echo "Linked $dst -> $src"
-done
+done < "$SCRIPT_DIR/apps.txt"
 
 # AGENTS.md: link to ~/.claude/AGENTS.md (Claude) and ~/AGENTS.md (generic agents)
 AGENTS_SRC="$DOTFILES_DIR/AGENTS.md"

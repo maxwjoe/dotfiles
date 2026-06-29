@@ -1,4 +1,3 @@
-## TODO: ADD LAZYGIT INSTALLATION TO THIS + WINDOWS + UBUNTU
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -12,7 +11,7 @@ fi
 xcode-select -p >/dev/null 2>&1 || xcode-select --install || true
 
 echo "Installing tools..."
-brew install neovim git ripgrep fd cmake node python pipx
+brew install neovim git ripgrep fd cmake node python pipx lazygit
 
 brew install --cask claude-code
 brew install --cask font-meslo-lg-nerd-font || true
