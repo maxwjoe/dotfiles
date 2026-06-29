@@ -1,3 +1,4 @@
+## TODO: ADD LAZYGIT INSTALLATION TO THIS + WINDOWS + UBUNTU
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -23,7 +24,7 @@ export PATH="$HOME/.local/bin:$PATH"
 pipx install black --force
 pipx install isort --force
 
-"$SCRIPT_DIR/setup-symlinks.sh"
+"$SCRIPT_DIR/setup_symlinks.sh"
 
 echo "Done."
 echo "Restart your terminal, then launch nvim and run :checkhealth."

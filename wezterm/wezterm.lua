@@ -31,7 +31,7 @@ end
 
 -- Windows and Tabs
 config.enable_tab_bar = true
-config.window_decorations = "RESIZE"
+-- config.window_decorations = "RESIZE"
 
 -- Leader
 
