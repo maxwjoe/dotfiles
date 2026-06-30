@@ -24,7 +24,7 @@ git clone <repo-url> "$env:USERPROFILE\.config\dotfiles"
 ~/.config/dotfiles/bootstrap/bootstrap_mac.sh
 ```
 
-Installs: neovim, git, ripgrep, fd, cmake, node, python, pipx, lazygit, claude-code, MesloLGS Nerd Font. Then links all configs.
+Installs: neovim, git, ripgrep, fd, cmake, node, python, pipx, lazygit, gh, claude-code, MesloLGS Nerd Font. Then links all configs.
 
 After: restart your terminal, open nvim and run `:checkhealth`.
 
@@ -38,7 +38,7 @@ After: restart your terminal, open nvim and run `:checkhealth`.
 ~/.config/dotfiles/bootstrap/bootstrap_ubuntu.sh
 ```
 
-Installs: neovim, git, ripgrep, fd-find, cmake, nodejs, npm, python3, pipx, lazygit (from GitHub releases). Then links all configs.
+Installs: neovim, git, ripgrep, fd-find, cmake, build-essential, node (LTS via NodeSource), python3, pipx, lazygit, gh, claude-code, MesloLGS Nerd Font. Then links all configs.
 
 After: restart your shell, open nvim and run `:checkhealth`.
 
@@ -55,7 +55,7 @@ Run in PowerShell (as Administrator or with Developer Mode):
 ~\.config\dotfiles\bootstrap\bootstrap_windows.ps1
 ```
 
-Installs: neovim, git, ripgrep, fd, cmake, node, python, gh, lazygit. Then links all configs.
+Installs: neovim, git, ripgrep, fd, cmake, llvm, ninja, node, python, gh, lazygit, claude-code, MesloLGS Nerd Font. Then links all configs.
 
 After: restart PowerShell, open nvim and run `:checkhealth`.
 
