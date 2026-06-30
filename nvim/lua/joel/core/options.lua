@@ -48,11 +48,18 @@ if vim.fn.has("win32") == 0 then
   end
 end
 
--- Ensure MinGW gcc (via MSYS2) is on PATH so treesitter can compile parsers
+-- Inject tool paths that mason and treesitter need but that may not be in nvim's inherited PATH
 if vim.fn.has("win32") == 1 then
-  local mingw_bin = "C:/msys64/ucrt64/bin"
-  if vim.fn.isdirectory(mingw_bin) == 1 and not vim.env.PATH:find(mingw_bin, 1, true) then
-    vim.env.PATH = mingw_bin .. ";" .. vim.env.PATH
+  local extra = {
+    "C:/msys64/ucrt64/bin",          -- gcc, ninja (treesitter + telescope fzf build)
+    "C:/msys64/usr/bin",              -- unzip, gzip (mason archive extraction)
+    "C:/Program Files/7-Zip",         -- 7z (mason archive extraction)
+    "C:/Program Files/PowerShell/7",  -- pwsh (mason + :terminal)
+  }
+  for _, p in ipairs(extra) do
+    if vim.fn.isdirectory(p) == 1 and not vim.env.PATH:find(p, 1, true) then
+      vim.env.PATH = p .. ";" .. vim.env.PATH
+    end
   end
 end
 
