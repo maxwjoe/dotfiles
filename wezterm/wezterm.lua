@@ -9,7 +9,7 @@ config.max_fps = 120
 
 -- Fonts
 config.font = wezterm.font("MesloLGS Nerd Font Mono")
-config.font_size = 19
+config.font_size = 13
 
 -- Theme
 config.color_scheme = "Github Dark"
@@ -19,6 +19,15 @@ if is_windows then
   config.window_background_opacity = 0.95
   config.window_frame = config.window_frame or {}
   config.window_frame.font_size = 10.0
+
+  config.default_prog = { "pwsh.exe", "-NoLogo" }
+
+  config.launch_menu = {
+    { label = "PowerShell Core",  args = { "pwsh.exe",        "-NoLogo" } },
+    { label = "PowerShell 5",     args = { "powershell.exe",  "-NoLogo" } },
+    { label = "Git Bash",         args = { "C:/Program Files/Git/bin/bash.exe", "-i", "-l" } },
+    { label = "Command Prompt",   args = { "cmd.exe" } },
+  }
 end
 
 if is_macos then
@@ -62,6 +71,7 @@ config.key_tables = {
 	},
 	tab_mode = {
 		{ key = "o", action = act.SpawnTab("CurrentPaneDomain") },                       -- to: new tab
+		{ key = "l", action = act.ShowLauncher },                                        -- tl: launch menu (pick shell)
 		{ key = "x", action = act.CloseCurrentTab({ confirm = true }) },                 -- tx: close tab
 		{ key = "Escape", action = "PopKeyTable" },
 	},

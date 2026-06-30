@@ -3,7 +3,6 @@
 
 return {
   "neovim/nvim-lspconfig",
-  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
@@ -94,8 +93,21 @@ return {
       capabilities = capabilities,
     })
 
-	-- Custom Configurations Here
-
-    vim.lsp.enable("clangd")
+    vim.lsp.enable({
+      -- Vim / scripting
+      "lua_ls", "vimls",
+      -- Docs
+      "marksman",
+      -- Web
+      "jsonls", "vtsls", "yamlls", "html", "cssls", "graphql",
+      -- Containers / config
+      "dockerls", "docker_compose_language_service", "taplo",
+      -- Shell
+      "bashls",
+      -- Python
+      "pyright",
+      -- C/C++ / build
+      "clangd", "cmake",
+    })
   end,
 }

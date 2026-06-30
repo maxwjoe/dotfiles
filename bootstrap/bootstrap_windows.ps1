@@ -18,13 +18,17 @@ winget install --id OpenJS.NodeJS.LTS -e --accept-package-agreements --accept-so
 winget install --id Python.Python.3.14 -e --accept-package-agreements --accept-source-agreements
 winget install --id GitHub.cli -e --accept-package-agreements --accept-source-agreements
 winget install --id JesseDuffield.lazygit -e --accept-package-agreements --accept-source-agreements
+winget install --id Microsoft.PowerShell -e --accept-package-agreements --accept-source-agreements
+winget install --id 7zip.7zip -e --accept-package-agreements --accept-source-agreements
 
-# Refresh PATH so node/npm installed above are available in this session
+# Refresh PATH so node/npm/pwsh/7z installed above are available in this session
 $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User")
 
 npm install -g @anthropic-ai/claude-code
+npm install -g neovim
 
 python -m pip install --upgrade pip
+python -m pip install pynvim
 python -m pip install pipx
 python -m pipx ensurepath
 

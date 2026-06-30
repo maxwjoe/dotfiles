@@ -16,7 +16,10 @@ brew install neovim git ripgrep fd cmake node python pipx lazygit gh
 brew install --cask claude-code
 brew install --cask font-meslo-lg-nerd-font || true
 
-echo "Installing Python formatters..."
+npm install -g neovim
+
+echo "Installing Python formatters and providers..."
+pip3 install pynvim
 pipx ensurepath
 export PATH="$HOME/.local/bin:$PATH"
 

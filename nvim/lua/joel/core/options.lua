@@ -48,6 +48,18 @@ if vim.fn.has("win32") == 0 then
   end
 end
 
+-- Ensure LLVM (clang) is on PATH so treesitter can compile parsers
+if vim.fn.has("win32") == 1 then
+  local llvm_bin = "C:/Program Files/LLVM/bin"
+  if vim.fn.isdirectory(llvm_bin) == 1 and not vim.env.PATH:find(llvm_bin, 1, true) then
+    vim.env.PATH = llvm_bin .. ";" .. vim.env.PATH
+  end
+end
+
+-- Suppress optional providers we don't use (eliminates health warnings)
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Native Windows: route :terminal and shell-outs through PowerShell (UTF-8)
 if vim.fn.has("win32") == 1 and vim.fn.executable("pwsh") == 1 then
   vim.o.shell = "pwsh"

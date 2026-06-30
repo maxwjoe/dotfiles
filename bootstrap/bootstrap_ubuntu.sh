@@ -44,10 +44,12 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
   | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 sudo apt update && sudo apt install -y gh
 
-# Claude Code
+# Claude Code + neovim node provider
 sudo npm install -g @anthropic-ai/claude-code
+sudo npm install -g neovim
 
-# Python formatters
+# Python formatters and neovim python provider
+pip3 install pynvim --break-system-packages
 pipx ensurepath
 export PATH="$HOME/.local/bin:$PATH"
 pipx install black --force

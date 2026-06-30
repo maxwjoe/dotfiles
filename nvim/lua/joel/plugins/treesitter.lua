@@ -22,6 +22,11 @@ return {
   },
 
   config = function()
+    -- clang is installed by the bootstrap but may not be in PATH as "cc"; be explicit
+    if vim.fn.has("win32") == 1 then
+      require("nvim-treesitter.install").compilers = { "clang" }
+    end
+
     local treesitter = require("nvim-treesitter.configs")
 
     treesitter.setup({

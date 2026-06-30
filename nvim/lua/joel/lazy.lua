@@ -19,6 +19,9 @@ require("lazy").setup({{ import = "joel.plugins" }, { import = "joel.plugins.lsp
     notify = false,
   },
   change_detection = {
-    notify = false
-  }
+    notify = false,
+  },
+  rocks = {
+    enabled = false,
+  },
 })
