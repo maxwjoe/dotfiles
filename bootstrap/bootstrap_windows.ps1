@@ -12,8 +12,7 @@ winget install --id Git.Git -e --accept-package-agreements --accept-source-agree
 winget install --id BurntSushi.ripgrep.MSVC -e --accept-package-agreements --accept-source-agreements
 winget install --id sharkdp.fd -e --accept-package-agreements --accept-source-agreements
 winget install --id Kitware.CMake -e --accept-package-agreements --accept-source-agreements
-winget install --id LLVM.LLVM -e --accept-package-agreements --accept-source-agreements
-winget install --id Ninja-build.Ninja -e --accept-package-agreements --accept-source-agreements
+winget install --id MSYS2.MSYS2 -e --accept-package-agreements --accept-source-agreements
 winget install --id OpenJS.NodeJS.LTS -e --accept-package-agreements --accept-source-agreements
 winget install --id Python.Python.3.14 -e --accept-package-agreements --accept-source-agreements
 winget install --id GitHub.cli -e --accept-package-agreements --accept-source-agreements
@@ -21,8 +20,11 @@ winget install --id JesseDuffield.lazygit -e --accept-package-agreements --accep
 winget install --id Microsoft.PowerShell -e --accept-package-agreements --accept-source-agreements
 winget install --id 7zip.7zip -e --accept-package-agreements --accept-source-agreements
 
-# Refresh PATH so node/npm/pwsh/7z installed above are available in this session
-$env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User")
+# Install MinGW-w64 gcc + ninja via MSYS2 (bundles its own stdlib headers — no MSVC needed)
+C:\msys64\usr\bin\bash.exe -lc "pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-ninja"
+
+# Refresh PATH so node/npm/pwsh/7z/gcc installed above are available in this session
+$env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User") + ";C:\msys64\ucrt64\bin"
 
 npm install -g @anthropic-ai/claude-code
 npm install -g neovim

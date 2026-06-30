@@ -8,9 +8,9 @@ return {
     "nvim-lua/plenary.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
-      -- Windows: explicitly use Ninja + clang since cmake can't auto-detect a generator without MSVC
+      -- Windows: use MinGW gcc + Ninja (from MSYS2); cmake can't auto-detect a generator without MSVC
       build = vim.fn.has("win32") == 1
-        and "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -G Ninja"
+        and "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc -G Ninja"
           .. " && cmake --build build --config Release"
           .. " && cmake --install build --prefix build"
         or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release"

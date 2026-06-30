@@ -22,9 +22,9 @@ return {
   },
 
   config = function()
-    -- clang is installed by the bootstrap but may not be in PATH as "cc"; be explicit
+    -- Use MinGW gcc (via MSYS2) on Windows — it bundles its own stdlib headers unlike LLVM standalone
     if vim.fn.has("win32") == 1 then
-      require("nvim-treesitter.install").compilers = { "clang" }
+      require("nvim-treesitter.install").compilers = { "gcc" }
     end
 
     local treesitter = require("nvim-treesitter.configs")

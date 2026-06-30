@@ -48,11 +48,11 @@ if vim.fn.has("win32") == 0 then
   end
 end
 
--- Ensure LLVM (clang) is on PATH so treesitter can compile parsers
+-- Ensure MinGW gcc (via MSYS2) is on PATH so treesitter can compile parsers
 if vim.fn.has("win32") == 1 then
-  local llvm_bin = "C:/Program Files/LLVM/bin"
-  if vim.fn.isdirectory(llvm_bin) == 1 and not vim.env.PATH:find(llvm_bin, 1, true) then
-    vim.env.PATH = llvm_bin .. ";" .. vim.env.PATH
+  local mingw_bin = "C:/msys64/ucrt64/bin"
+  if vim.fn.isdirectory(mingw_bin) == 1 and not vim.env.PATH:find(mingw_bin, 1, true) then
+    vim.env.PATH = mingw_bin .. ";" .. vim.env.PATH
   end
 end
 
