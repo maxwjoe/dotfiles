@@ -11,7 +11,7 @@ fi
 xcode-select -p >/dev/null 2>&1 || xcode-select --install || true
 
 echo "Installing tools..."
-brew install neovim git ripgrep fd cmake node python pipx lazygit gh
+brew install neovim git ripgrep fd cmake node python pipx lazygit gh harlequin posting tree-sitter-cli
 
 brew install --cask claude-code
 brew install --cask font-meslo-lg-nerd-font || true
@@ -19,7 +19,7 @@ brew install --cask font-meslo-lg-nerd-font || true
 npm install -g neovim
 
 echo "Installing Python formatters and providers..."
-pip3 install pynvim
+pip3 install pynvim --break-system-packages
 pipx ensurepath
 export PATH="$HOME/.local/bin:$PATH"
 

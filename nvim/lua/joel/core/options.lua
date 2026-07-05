@@ -50,8 +50,12 @@ end
 
 -- Inject tool paths that mason and treesitter need but that may not be in nvim's inherited PATH
 if vim.fn.has("win32") == 1 then
+  local proc_arch = vim.env.PROCESSOR_ARCHITECTURE or ""
+  local msys2_mingw = proc_arch:upper() == "ARM64"
+    and "C:/msys64/clangarm64/bin"
+    or  "C:/msys64/ucrt64/bin"
   local extra = {
-    "C:/msys64/ucrt64/bin",          -- gcc, ninja (treesitter + telescope fzf build)
+    msys2_mingw,                      -- gcc, ninja (treesitter + telescope fzf build)
     "C:/msys64/usr/bin",              -- unzip, gzip (mason archive extraction)
     "C:/Program Files/7-Zip",         -- 7z (mason archive extraction)
     "C:/Program Files/PowerShell/7",  -- pwsh (mason + :terminal)

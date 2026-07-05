@@ -48,12 +48,17 @@ sudo apt update && sudo apt install -y gh
 sudo npm install -g @anthropic-ai/claude-code
 sudo npm install -g neovim
 
+# tree-sitter CLI — required by nvim-treesitter (main branch) to compile parsers
+sudo npm install -g tree-sitter-cli
+
 # Python formatters and neovim python provider
 pip3 install pynvim --break-system-packages
 pipx ensurepath
 export PATH="$HOME/.local/bin:$PATH"
 pipx install black --force
 pipx install isort --force
+pipx install harlequin --force
+pipx install posting --force
 
 # MesloLGS Nerd Font Mono
 echo "Installing MesloLGS Nerd Font Mono..."

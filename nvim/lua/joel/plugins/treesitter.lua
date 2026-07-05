@@ -3,18 +3,22 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre", "BufNewFile" },
+  branch = "main",
+  lazy = false,
   build = ":TSUpdate",
   dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
+    {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      branch = "main",
+    },
     {
       "windwp/nvim-ts-autotag",
       config = function()
         require("nvim-ts-autotag").setup({
           opts = {
-            enable_close = true,          -- Auto close tags
-            enable_rename = true,         -- Auto rename paired tags
-            enable_close_on_slash = false -- Auto close on trailing </
+            enable_close = true,
+            enable_rename = true,
+            enable_close_on_slash = false,
           },
         })
       end,
@@ -22,82 +26,81 @@ return {
   },
 
   config = function()
-    -- Use MinGW gcc (via MSYS2) on Windows — it bundles its own stdlib headers unlike LLVM standalone
-    if vim.fn.has("win32") == 1 then
-      require("nvim-treesitter.install").compilers = { "gcc" }
-    end
+    local ts = require("nvim-treesitter")
+    -- Guard: install() only exists on the main branch; skip on master (pre-:Lazy sync)
+    if not ts.install then return end
 
-    local treesitter = require("nvim-treesitter.configs")
+    ts.install({
+      "json",
+      "javascript",
+      "typescript",
+      "tsx",
+      "yaml",
+      "html",
+      "css",
+      "markdown",
+      "markdown_inline",
+      "bash",
+      "lua",
+      "vim",
+      "dockerfile",
+      "gitignore",
+      "query",
+      "vimdoc",
+      "c",
+      "c_sharp",
+      "sql",
+      "cpp",
+      "python",
+      "cmake",
+      "make",
+      "toml",
+    })
 
-    treesitter.setup({
-      highlight = { enable = true },
-      indent = { enable = true },
-
-      ensure_installed = {
-        "json",
-        "javascript",
-        "typescript",
-        "tsx",
-        "yaml",
-        "html",
-        "css",
-        "markdown",
-        "markdown_inline",
-        "bash",
-        "lua",
-        "vim",
-        "dockerfile",
-        "gitignore",
-        "query",
-        "vimdoc",
-        "c",
-        "c_sharp",
-        "sql",
-        "cpp",
-        "python",
-        "cmake",
-        "make",
-        "toml",
-      },
-
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true,
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-        },
-      },
-
-      -- NOTE: no `autotag = {}` block here; that setup is deprecated upstream.
+    -- Enable treesitter highlighting + indentation for all filetypes with a parser
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "*",
+      callback = function(args)
+        if pcall(vim.treesitter.start, args.buf) then
+          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
     })
 
     vim.treesitter.language.register("bash", "zsh")
+
+    -- Textobject setup
+    require("nvim-treesitter-textobjects").setup({
+      select = { lookahead = true },
+      move = { set_jumps = true },
+    })
+
+    -- Select keymaps
+    vim.keymap.set({ "x", "o" }, "af", function()
+      require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+    end)
+    vim.keymap.set({ "x", "o" }, "if", function()
+      require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+    end)
+    vim.keymap.set({ "x", "o" }, "ac", function()
+      require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+    end)
+    vim.keymap.set({ "x", "o" }, "ic", function()
+      require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+    end)
+
+    -- Move keymaps
+    vim.keymap.set({ "n", "x", "o" }, "]m", function()
+      require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
+    end)
+    vim.keymap.set({ "n", "x", "o" }, "]]", function()
+      require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
+    end)
+    vim.keymap.set({ "n", "x", "o" }, "[m", function()
+      require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
+    end)
+    vim.keymap.set({ "n", "x", "o" }, "[[", function()
+      require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
+    end)
   end,
 }
