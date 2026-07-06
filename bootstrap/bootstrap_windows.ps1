@@ -15,6 +15,7 @@ winget install --id Kitware.CMake -e --accept-package-agreements --accept-source
 winget install --id MSYS2.MSYS2 -e --accept-package-agreements --accept-source-agreements
 winget install --id OpenJS.NodeJS.LTS -e --accept-package-agreements --accept-source-agreements
 winget install --id Python.Python.3.13 -e --accept-package-agreements --accept-source-agreements
+winget install --id astral-sh.uv -e --accept-package-agreements --accept-source-agreements
 winget install --id GitHub.cli -e --accept-package-agreements --accept-source-agreements
 winget install --id JesseDuffield.lazygit -e --accept-package-agreements --accept-source-agreements
 winget install --id Microsoft.PowerShell -e --accept-package-agreements --accept-source-agreements

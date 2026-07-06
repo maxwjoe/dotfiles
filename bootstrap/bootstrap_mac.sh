@@ -11,7 +11,7 @@ fi
 xcode-select -p >/dev/null 2>&1 || xcode-select --install || true
 
 echo "Installing tools..."
-brew install neovim git ripgrep fd cmake node python pipx lazygit gh harlequin posting tree-sitter-cli
+brew install neovim git ripgrep fd cmake node python pipx uv lazygit gh harlequin posting tree-sitter-cli
 
 brew install --cask claude-code
 brew install --cask font-meslo-lg-nerd-font || true

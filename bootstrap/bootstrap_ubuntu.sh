@@ -51,6 +51,9 @@ sudo npm install -g neovim
 # tree-sitter CLI — required by nvim-treesitter (main branch) to compile parsers
 sudo npm install -g tree-sitter-cli
 
+# uv — Python package/project manager (not in apt; installs to ~/.local/bin)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # Python formatters and neovim python provider
 pip3 install pynvim --break-system-packages
 pipx ensurepath
