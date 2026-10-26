@@ -37,7 +37,8 @@ return {
         map_key("n", "gD", "<cmd>Telescope lsp_definitions<CR>", "Show definitions")
 
         -- References
-        map_key("n", "gr", vim.lsp.buf.references,               "Jump to references")
+        -- nowait: otherwise `gr` stalls for timeoutlen waiting on Neovim's built-in grr/grn/gra/gri maps
+        keymap.set("n", "gr", vim.lsp.buf.references, { buffer = ev.buf, silent = true, nowait = true, desc = "Jump to references" })
         map_key("n", "gR", "<cmd>Telescope lsp_references<CR>",  "Show references")
 
         -- Implementations
@@ -58,11 +59,11 @@ return {
         map_key("n", "<leader>d", vim.diagnostic.open_float,             "Line diagnostics")
 
         map_key("n", "[d", function()
-          vim.diagnostic.jump({ count = 1, float = true })
+          vim.diagnostic.jump({ count = -1, float = true })
         end, "Prev diagnostic")
 
         map_key("n", "]d", function()
-          vim.diagnostic.jump({ count = -1, float = true })
+          vim.diagnostic.jump({ count = 1, float = true })
         end, "Next diagnostic")
 
         map_key("n", "K",  vim.lsp.buf.hover,                             "Hover docs")

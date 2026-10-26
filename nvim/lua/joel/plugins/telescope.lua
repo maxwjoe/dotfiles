@@ -3,7 +3,7 @@
 
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
+  version = "*", -- latest release tag; 0.1.x is incompatible with nvim-treesitter main (ft_to_lang removed)
   dependencies = {
     "nvim-lua/plenary.nvim",
     {

@@ -28,6 +28,9 @@ return {
 		})
 
 		mason_lspconfig.setup({
+			-- Servers are enabled explicitly via vim.lsp.enable() in lspconfig.lua; auto-enable would also
+			-- start LSPs for tool-installer packages (stylua, ruff) and duplicate formatter/linter output
+			automatic_enable = false,
 			ensure_installed = {
 
 				-- Vim
@@ -72,6 +75,7 @@ return {
 				-- "black",
 				"ruff",
 				"eslint_d",
+				"shfmt",
 			},
 		})
 	end,

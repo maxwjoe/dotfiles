@@ -11,7 +11,6 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
-				vim = { "vimfaker" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
 				javascriptreact = { "prettier" },
@@ -24,12 +23,9 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				liquid = { "prettier" },
-				prisma = { "prisma_fmt" },
 				python = { "isort", "black" },
 				sh = { "shfmt" },
 				bash = { "shfmt" },
-				dockerfile = { "dockerfile_fmt" },
-				dockerignore = { "dockerfile_fmt" },
 				toml = { "taplo" },
 				sql = { "sqlfluff" },
 				c = {},
@@ -43,7 +39,7 @@ return {
 			},
 
 			-- format_on_save = {
-			--   lsp_fallback = true, -- triggers clangd/omnisharp formatting
+			--   lsp_format = "fallback", -- triggers clangd/omnisharp formatting
 			--   async = false,
 			--   timeout_ms = 1000,
 			-- },
@@ -51,7 +47,7 @@ return {
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
-				lsp_fallback = true,
+				lsp_format = "fallback",
 				async = false,
 				timeout_ms = 1000,
 			})
