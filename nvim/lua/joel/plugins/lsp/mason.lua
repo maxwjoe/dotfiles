@@ -63,7 +63,7 @@ return {
 				-- Lower Level
 
 				"clangd", -- c/cpp
-				"cmake", -- cmake
+				"neocmake", -- cmake (neocmakelsp; cmake-language-server needs python<3.14)
 			},
 		})
 

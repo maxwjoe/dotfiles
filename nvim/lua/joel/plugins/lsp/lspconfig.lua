@@ -108,7 +108,7 @@ return {
       -- Python
       "pyright",
       -- C/C++ / build
-      "clangd", "cmake",
+      "clangd", "neocmake",
     })
   end,
 }

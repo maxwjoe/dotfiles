@@ -24,7 +24,7 @@ git clone <repo-url> "$env:USERPROFILE\.config\dotfiles"
 ~/.config/dotfiles/bootstrap/bootstrap_mac.sh
 ```
 
-Installs: neovim, git, ripgrep, fd, cmake, node, python, pipx, lazygit, gh, claude-code, MesloLGS Nerd Font. Then links all configs.
+Installs: neovim, git, ripgrep, fd, cmake, node, python, pipx, uv, lazygit, gh, harlequin, posting, tree-sitter-cli, claude-code@latest, WezTerm, MesloLGS Nerd Font. Adds `brew shellenv` to `~/.zprofile`. Then links all configs.
 
 After: restart your terminal, open nvim and run `:checkhealth`.
 
